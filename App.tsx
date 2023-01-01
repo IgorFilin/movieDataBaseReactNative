@@ -2,29 +2,40 @@ import {StyleSheet, View} from 'react-native';
 import {Button, TextInput} from "react-native-paper";
 import {useState} from "react";
 import {Provider} from "react-redux";
-import {store} from "./src/BLL/store/store";
+import {store, useAppDispatch} from "./src/BLL/store/store";
+import {contentThunk} from "./src/BLL/thunk/contentThunk";
 
-export default function App() {
+export default function defaultApp() {
+    return (
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    )
+}
+
+function App() {
     const [text, setText] = useState("");
 
-    const searchFilmsHandler = () => {
+    const dispatch = useAppDispatch()
 
+    const searchFilmsHandler = () => {
+        dispatch(contentThunk({title: text}))
     }
 
     return (
-        <Provider store={store}>
-            <View style={styles.container}>
-                <View style={styles.searchContainer}>
-                    <TextInput label="Search films"
-                               value={text}
-                               onChangeText={text => setText(text)}/>
 
-                    <Button style={styles.buttonSend} mode="contained" onPress={searchFilmsHandler}>
-                        Send Search
-                    </Button>
-                </View>
+        <View style={styles.container}>
+            <View style={styles.searchContainer}>
+                <TextInput label="Search films"
+                           value={text}
+                           onChangeText={text => setText(text)}/>
+
+                <Button style={styles.buttonSend} mode="contained" onPress={searchFilmsHandler}>
+                    Send Search
+                </Button>
             </View>
-        </Provider>
+        </View>
+
     );
 }
 
