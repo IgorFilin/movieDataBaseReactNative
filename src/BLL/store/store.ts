@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {contentReducer} from "../reducer/content-reducer";
-import {useDispatch} from "react-redux";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
 const rootReducer = combineReducers({
@@ -10,6 +10,8 @@ const rootReducer = combineReducers({
 export type AppStoreType = ReturnType<typeof store.getState>
 
 export type AppDispatch = typeof store.dispatch
+
+export const useAppSelector:TypedUseSelectorHook<AppStoreType> = useSelector;
 
 export const useAppDispatch = (): any => useDispatch<AppDispatch>();
 

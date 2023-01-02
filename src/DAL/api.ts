@@ -1,12 +1,10 @@
 import axios from "axios";
+import {instance} from "./instance";
+import {SearchTitleContentType} from "../BLL/types/types";
 
 
-const instance = axios.create({
-    baseURL:'http://www.omdbapi.com/'
-})
-const key = "a5aa57ed"
 export const api = {
-    getContent:(title:string)=>{
-        return instance.get(`?apikey=${key}&s=${title}`)
+    getContent:(title:string,page:number)=>{
+        return instance.get<SearchTitleContentType>(`?s=${title}&page=${page}`)
     }
 }

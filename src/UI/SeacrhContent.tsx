@@ -7,11 +7,12 @@ import {contentThunk} from "../BLL/thunk/contentThunk";
 export const SearchContent = () => {
 
     const [text, setText] = useState("");
+    const [page,setPage] = useState(1)
 
     const dispatch = useAppDispatch()
 
     const searchFilmsHandler = () => {
-        dispatch(contentThunk({title: text}))
+        dispatch(contentThunk({title: text,page}))
     }
 
     return (
@@ -30,19 +31,21 @@ export const SearchContent = () => {
 };
 const styles = StyleSheet.create({
     container: {
+        width:'100%',
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#fff'
-    },
-    buttonSend: {
-        width: '100%',
-        marginTop: 10,
-        alignSelf: 'center',
     },
     searchContainer: {
         marginTop: 100,
         display: 'flex',
         justifyContent: 'center',
         width: '40%'
-    }
+    },
+    buttonSend: {
+        width: '100%',
+        marginTop: 10,
+        alignSelf: 'center',
+    },
+
 });
