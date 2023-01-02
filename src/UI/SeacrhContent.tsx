@@ -1,13 +1,18 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from "react-native";
 import {Button, TextInput} from "react-native-paper";
-import {useAppDispatch} from "../BLL/store/store";
+import {useAppDispatch, useAppSelector} from "../BLL/store/store";
 import {contentThunk} from "../BLL/thunk/contentThunk";
 
-export const SearchContent = () => {
+ type SearchContentPropsType = {
+
+}
+
+export const SearchContent:React.FC<SearchContentPropsType> = () => {
 
     const [text, setText] = useState("");
-    const [page,setPage] = useState(1)
+
+    const {page} = useAppSelector(state => state.contentReducer)
 
     const dispatch = useAppDispatch()
 

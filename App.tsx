@@ -1,9 +1,11 @@
 import {Provider} from "react-redux";
-import {store, useAppSelector} from "./src/BLL/store/store";
+import {store, useAppDispatch, useAppSelector} from "./src/BLL/store/store";
 import {SearchContent} from "./src/UI/SeacrhContent";
 import {ActivityIndicator, MD2Colors} from "react-native-paper";
 import {ScrollView, StyleSheet, View} from "react-native";
 import {Content} from "./src/UI/Content";
+import {useState} from "react";
+import {contentThunk} from "./src/BLL/thunk/contentThunk";
 
 export default function defaultApp() {
     return (
@@ -14,7 +16,6 @@ export default function defaultApp() {
 }
 
 function App() {
-
     const {isLoading} = useAppSelector(state => state.contentReducer)
 
     if (isLoading) {
@@ -22,8 +23,8 @@ function App() {
     }
     return (
             <View style={styles.global}>
-                <SearchContent/>
-                <Content/>
+                <SearchContent />
+                <Content />
             </View>
     )
 }

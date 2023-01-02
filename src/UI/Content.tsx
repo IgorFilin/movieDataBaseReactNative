@@ -1,15 +1,21 @@
 import React from 'react';
-import {useAppSelector} from "../BLL/store/store";
+import {useAppDispatch, useAppSelector} from "../BLL/store/store";
 import {FlatList, StyleSheet, View} from "react-native";
 import {OneFilmInSearched} from "./oneFilmInSearched";
+import {contentThunk} from "../BLL/thunk/contentThunk";
 
-export const Content = () => {
+type ContentTypeProps = {
 
-    const {films} = useAppSelector(state => state.contentReducer)
+}
+
+export const Content:React.FC<ContentTypeProps> = () => {
+
+    const {films,page} = useAppSelector(state => state.contentReducer)
+
+    const dispatch = useAppDispatch()
 
     const onEndHandler = () => {
-        debugger
-     return console.log(1)
+        // dispatch(contentThunk())
     }
 
     return (
