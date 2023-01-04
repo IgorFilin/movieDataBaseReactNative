@@ -1,4 +1,3 @@
-import axios from "axios";
 import {instance} from "./instance";
 import {SearchTitleContentType} from "../BLL/types/types";
 

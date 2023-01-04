@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from "react-native";
 import {Button, TextInput} from "react-native-paper";
-import {useAppDispatch, useAppSelector} from "../BLL/store/store";
+import {useAppDispatch} from "../BLL/store/store";
 import {contentThunk} from "../BLL/thunk/contentThunk";
 
- type SearchContentPropsType = {
+type SearchContentPropsType = {
 
 }
 
@@ -12,12 +12,12 @@ export const SearchContent:React.FC<SearchContentPropsType> = () => {
 
     const [text, setText] = useState("");
 
-    const {page} = useAppSelector(state => state.contentReducer)
 
     const dispatch = useAppDispatch()
 
     const searchFilmsHandler = () => {
-        dispatch(contentThunk({title: text,page}))
+        dispatch(contentThunk({title: text,page:1}))
+        setText('')
     }
 
     return (
@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     searchContainer: {
-        marginTop: 100,
+        marginTop: 30,
+        marginBottom:10,
         display: 'flex',
         justifyContent: 'center',
         width: '40%'
