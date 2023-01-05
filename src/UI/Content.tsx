@@ -47,7 +47,7 @@ export const Content:React.FC<ContentTypeProps> = ({navigation}) => {
                 // columnWrapperStyle={{justifyContent:'center'}}
                 // numColumns={1}
                 data={films}
-                renderItem={({item}) => <OneFilmInSearched navigation={navigation} film={item}/>}
+                renderItem={({item}) => <OneFilmInSearched  navigation={navigation} film={item} />}
                 keyExtractor={item => item.imdbID}
                 onEndReachedThreshold={0.4}
                 onEndReached={onEndHandler}

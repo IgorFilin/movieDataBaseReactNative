@@ -27,8 +27,11 @@ export const contentSlice = createSlice({
             if(action.meta.arg.page === 1){
                 state.isLoading = false
             }
-            state.films = [...state.films,...action.payload.Search]
-            state.searchTitle = action.meta.arg.title
+            state.films = [...state.films,...action.payload]
+            if(action.meta.arg.title){
+                state.searchTitle = action.meta.arg.title
+            }
+
         })
         builder.addCase(contentThunk.rejected, (state,action) => {
             if(action.meta.arg.page === 1){

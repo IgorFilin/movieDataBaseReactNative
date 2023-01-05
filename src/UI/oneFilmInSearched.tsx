@@ -11,7 +11,7 @@ type OneFilmInSearchedType = {
 export const OneFilmInSearched:React.FC<OneFilmInSearchedType> = ({film,navigation}) => {
 
     const onPressItemContentHandler = () => {
-        navigation.navigate('CurrentFilmById', {id: film.imdbID})
+        navigation.navigate('Title', {id: film.imdbID})
         console.log(film.imdbID)
     }
 

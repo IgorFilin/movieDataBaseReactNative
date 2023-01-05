@@ -8,7 +8,7 @@ type SearchContentPropsType = {
     navigation:any
 }
 
-export const SearchContent:React.FC<SearchContentPropsType> = ({navigation}) => {
+export const SearchContent:React.FC<SearchContentPropsType> = ({}) => {
 
     const [text, setText] = useState("");
 
