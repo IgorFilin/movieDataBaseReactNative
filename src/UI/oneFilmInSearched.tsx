@@ -5,11 +5,18 @@ import {SearchTitleOneFilmType} from "../BLL/types/types";
 
 type OneFilmInSearchedType = {
     film:SearchTitleOneFilmType
+    navigation:any
 }
 
-export const OneFilmInSearched:React.FC<OneFilmInSearchedType> = ({film}) => {
+export const OneFilmInSearched:React.FC<OneFilmInSearchedType> = ({film,navigation}) => {
+
+    const onPressItemContentHandler = () => {
+        navigation.navigate('CurrentFilmById', {id: film.imdbID})
+        console.log(film.imdbID)
+    }
+
     return (
-        <Card style={{width: 280, margin:10,}} key={film.imdbID}>
+        <Card onPress={onPressItemContentHandler} style={{width: 280, margin:10,}} key={film.imdbID}>
             <Card.Content style={{...styles.content}}>
                 <Image style={styles.img} source={{uri:film.Poster}}/>
                 <Title style={styles.title}>{film.Title}

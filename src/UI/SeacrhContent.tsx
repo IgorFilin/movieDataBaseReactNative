@@ -5,10 +5,10 @@ import {useAppDispatch} from "../BLL/store/store";
 import {contentThunk} from "../BLL/thunk/contentThunk";
 
 type SearchContentPropsType = {
-
+    navigation:any
 }
 
-export const SearchContent:React.FC<SearchContentPropsType> = () => {
+export const SearchContent:React.FC<SearchContentPropsType> = ({navigation}) => {
 
     const [text, setText] = useState("");
 

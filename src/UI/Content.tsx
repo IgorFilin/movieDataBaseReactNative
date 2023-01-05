@@ -8,10 +8,10 @@ import {Button} from "react-native-paper";
 
 
 type ContentTypeProps = {
-
+    navigation:any
 }
 
-export const Content:React.FC<ContentTypeProps> = () => {
+export const Content:React.FC<ContentTypeProps> = ({navigation}) => {
     const [onButtonUp,setOnButtonUp] = useState(false)
 
     const {films,page,searchTitle} = useAppSelector(state => state.contentReducer)
@@ -19,10 +19,12 @@ export const Content:React.FC<ContentTypeProps> = () => {
 
 
     const dispatch = useAppDispatch()
+
     const onEndHandler = async () => {
         await dispatch(contentSlice.actions.changePage())
         dispatch(contentThunk({title:searchTitle,page}))
     }
+
     const onScrollHandler = (e:NativeSyntheticEvent<NativeScrollEvent>) => {
         if(e.nativeEvent.contentOffset.y > 500){
             setOnButtonUp(true)
@@ -45,7 +47,7 @@ export const Content:React.FC<ContentTypeProps> = () => {
                 // columnWrapperStyle={{justifyContent:'center'}}
                 // numColumns={1}
                 data={films}
-                renderItem={({item}) => <OneFilmInSearched film={item}/>}
+                renderItem={({item}) => <OneFilmInSearched navigation={navigation} film={item}/>}
                 keyExtractor={item => item.imdbID}
                 onEndReachedThreshold={0.4}
                 onEndReached={onEndHandler}
