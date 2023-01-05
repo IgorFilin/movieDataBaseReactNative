@@ -18,16 +18,22 @@ export const contentSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(contentThunk.pending, (state) => {
-            // state.isLoading = true
+        builder.addCase(contentThunk.pending, (state,action) => {
+            if(action.meta.arg.page === 1){
+                state.isLoading = true
+            }
         })
         builder.addCase(contentThunk.fulfilled, (state, action) => {
-            // state.isLoading = false
+            if(action.meta.arg.page === 1){
+                state.isLoading = false
+            }
             state.films = [...state.films,...action.payload.Search]
             state.searchTitle = action.meta.arg.title
         })
-        builder.addCase(contentThunk.rejected, (state) => {
-            // state.isLoading = false
+        builder.addCase(contentThunk.rejected, (state,action) => {
+            if(action.meta.arg.page === 1){
+                state.isLoading = false
+            }
         })
     }
 })

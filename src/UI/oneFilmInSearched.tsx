@@ -9,7 +9,7 @@ type OneFilmInSearchedType = {
 
 export const OneFilmInSearched:React.FC<OneFilmInSearchedType> = ({film}) => {
     return (
-        <Card style={{width: 220, margin:10,}} key={film.imdbID}>
+        <Card style={{width: 280, margin:10,}} key={film.imdbID}>
             <Card.Content style={{...styles.content}}>
                 <Image style={styles.img} source={{uri:film.Poster}}/>
                 <Title style={styles.title}>{film.Title}
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     img: {
         width: 190,
         height: 280,
-        aspectRatio: 40 / 80,
+        borderRadius:7
+        // aspectRatio: 40 / 80,
     },
     content: {
         alignItems: 'center',

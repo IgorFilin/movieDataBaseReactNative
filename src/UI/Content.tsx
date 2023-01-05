@@ -1,20 +1,21 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../BLL/store/store";
 import {FlatList, NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View} from "react-native";
 import {OneFilmInSearched} from "./oneFilmInSearched";
 import {contentThunk} from "../BLL/thunk/contentThunk";
 import {contentSlice} from "../BLL/reducer/content-reducer";
-import {Button, IconButton} from "react-native-paper";
+import {Button} from "react-native-paper";
+
 
 type ContentTypeProps = {
 
 }
 
 export const Content:React.FC<ContentTypeProps> = () => {
-    const [onButtonUp,setOnButtonUp] = useState(true)
-    console.log(onButtonUp)
-    const {films,page,searchTitle} = useAppSelector(state => state.contentReducer)
+    const [onButtonUp,setOnButtonUp] = useState(false)
 
+    const {films,page,searchTitle} = useAppSelector(state => state.contentReducer)
+    const flatListRef = React.useRef<any>()
 
 
     const dispatch = useAppDispatch()
@@ -26,23 +27,31 @@ export const Content:React.FC<ContentTypeProps> = () => {
         if(e.nativeEvent.contentOffset.y > 500){
             setOnButtonUp(true)
         }
+        if(e.nativeEvent.contentOffset.y < 500 && onButtonUp){
+            setOnButtonUp(false)
+        }
     }
 
-
+    const onPressHandler = () => {
+        flatListRef.current.scrollToOffset({ animated: true, offset: 0 })
+    }
 
     return (
         <View>
             <FlatList
+                ref={flatListRef}
+                contentContainerStyle={{ alignItems:"center"}}
                 onScroll={onScrollHandler}
-                columnWrapperStyle={{justifyContent:'center'}}
-                numColumns={2}
+                // columnWrapperStyle={{justifyContent:'center'}}
+                // numColumns={1}
                 data={films}
                 renderItem={({item}) => <OneFilmInSearched film={item}/>}
                 keyExtractor={item => item.imdbID}
                 onEndReachedThreshold={0.4}
                 onEndReached={onEndHandler}
+                scrollsToTop
             />
-            { onButtonUp && <IconButton style={styles.upScrollButton} icon={'camera'}></IconButton>}
+            { onButtonUp && <Button  labelStyle={{ color: "white", fontSize: 15 }} onPress={onPressHandler} style={styles.upScrollButton}>Up</Button>}
         </View>
     );
 };
@@ -51,11 +60,6 @@ const styles = StyleSheet.create({
     card: {
         textAlign: 'center'
 
-    },
-    img: {
-        width: '100%',
-        height: undefined,
-        aspectRatio: 90 / 120,
     },
     content: {
         alignItems: 'center',
@@ -67,8 +71,10 @@ const styles = StyleSheet.create({
     },
     upScrollButton:{
         position:"absolute",
-        top:-112,
+        top:22,
         right:'10%',
+        backgroundColor:'#325DF4',
+        color:'white',
     }
 
 })

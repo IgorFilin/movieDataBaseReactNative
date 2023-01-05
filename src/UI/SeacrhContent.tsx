@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from "react-native";
+import {Keyboard, StyleSheet, View} from "react-native";
 import {Button, TextInput} from "react-native-paper";
 import {useAppDispatch} from "../BLL/store/store";
 import {contentThunk} from "../BLL/thunk/contentThunk";
@@ -18,6 +18,7 @@ export const SearchContent:React.FC<SearchContentPropsType> = () => {
     const searchFilmsHandler = () => {
         dispatch(contentThunk({title: text,page:1}))
         setText('')
+        Keyboard.dismiss()
     }
 
     return (
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
         width: '100%',
         marginTop: 10,
         alignSelf: 'center',
+        backgroundColor:'#325DF4'
     },
 
 });
