@@ -1,25 +1,30 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {api} from "../../DAL/api";
-import {SearchTitleOneFilmType} from "../types/types";
+import {SearchFilmByIdType, SearchTitleOneFilmType} from "../types/types";
 
 
 export const contentThunk = createAsyncThunk('content/getContent', async ({
-                                                                              title,
+                                                                              id,
                                                                               page,
-                                                                               id
-                                                                          }: { title?: string, page?: number, id?:string}, thunkAPI) => {
+                                                                              title
+                                                                          }: { title?: string, page?: number, id?: string }, thunkAPI) => {
     try {
         let responseArr = [] as Array<SearchTitleOneFilmType>
-        if(page || id || title){
+        let responseObj = {} as SearchFilmByIdType
+        if (page || title) {
             const response = await api.getContent(title, page)
             responseArr = response.data.Search
             return responseArr
-        } else  return  responseArr
+        } else if (id) {
+            const response = await api.getContent('',null,id)
+            responseObj = response.data
+            return  responseObj
+        } else return responseArr
 
 
     } catch (err) {
 
-     return  thunkAPI.rejectWithValue(err)
+        return thunkAPI.rejectWithValue(err)
     }
 
 })

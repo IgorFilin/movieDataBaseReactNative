@@ -44,8 +44,6 @@ export const Content:React.FC<ContentTypeProps> = ({navigation}) => {
                 ref={flatListRef}
                 contentContainerStyle={{ alignItems:"center"}}
                 onScroll={onScrollHandler}
-                // columnWrapperStyle={{justifyContent:'center'}}
-                // numColumns={1}
                 data={films}
                 renderItem={({item}) => <OneFilmInSearched  navigation={navigation} film={item} />}
                 keyExtractor={item => item.imdbID}

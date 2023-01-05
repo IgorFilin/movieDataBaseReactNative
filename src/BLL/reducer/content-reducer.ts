@@ -1,12 +1,14 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {contentThunk} from "../thunk/contentThunk";
-import {SearchTitleOneFilmType} from "../types/types";
+import {SearchFilmByIdType, SearchTitleOneFilmType} from "../types/types";
 
 const initialState = {
     films: [] as Array<SearchTitleOneFilmType>,
     page: 2 as number,
+    searchFilmById:{} as SearchFilmByIdType | {},
     searchTitle: '' as string,
-    isLoading: false as boolean
+    isLoading: false as boolean,
+    currentId:'',
 }
 
 export const contentSlice = createSlice({
@@ -16,6 +18,13 @@ export const contentSlice = createSlice({
         changePage: (state) => {
             state.page = state.page + 1
         },
+        clearState:(state)=>{
+            state.films = []
+            state.page = 2
+            state.searchFilmById = {}
+            state.searchTitle = ''
+            state.currentId = ''
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(contentThunk.pending, (state,action) => {
@@ -27,7 +36,16 @@ export const contentSlice = createSlice({
             if(action.meta.arg.page === 1){
                 state.isLoading = false
             }
-            state.films = [...state.films,...action.payload]
+            if(action.payload && Array.isArray(action.payload)){
+                state.films = [...state.films,...action.payload]
+            }
+            if(action.meta.arg.id && typeof action.payload === 'object' &&
+                !Array.isArray(action.payload) &&
+                action.payload !== null){
+                state.currentId = action.meta.arg.id
+                state.searchFilmById = action.payload
+            }
+
             if(action.meta.arg.title){
                 state.searchTitle = action.meta.arg.title
             }

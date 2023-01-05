@@ -2,6 +2,8 @@ import React from 'react';
 import {Card, Title} from "react-native-paper";
 import {Image, StyleSheet} from "react-native";
 import {SearchTitleOneFilmType} from "../BLL/types/types";
+import {useAppDispatch} from "../BLL/store/store";
+import {contentThunk} from "../BLL/thunk/contentThunk";
 
 type OneFilmInSearchedType = {
     film:SearchTitleOneFilmType
@@ -9,10 +11,11 @@ type OneFilmInSearchedType = {
 }
 
 export const OneFilmInSearched:React.FC<OneFilmInSearchedType> = ({film,navigation}) => {
+    const dispatch = useAppDispatch()
 
     const onPressItemContentHandler = () => {
+        dispatch(contentThunk({id:film.imdbID}))
         navigation.navigate('Title', {id: film.imdbID})
-        console.log(film.imdbID)
     }
 
     return (

@@ -3,6 +3,7 @@ import {Keyboard, StyleSheet, View} from "react-native";
 import {Button, TextInput} from "react-native-paper";
 import {useAppDispatch} from "../BLL/store/store";
 import {contentThunk} from "../BLL/thunk/contentThunk";
+import {contentSlice} from "../BLL/reducer/content-reducer";
 
 type SearchContentPropsType = {
     navigation:any
@@ -16,6 +17,7 @@ export const SearchContent:React.FC<SearchContentPropsType> = ({}) => {
     const dispatch = useAppDispatch()
 
     const searchFilmsHandler = () => {
+        dispatch(contentSlice.actions.clearState())
         dispatch(contentThunk({title: text,page:1}))
         setText('')
         Keyboard.dismiss()
