@@ -10,7 +10,6 @@ export interface SearchTitleOneFilmType {
 }
 
 export interface SearchFilmByIdType {
-
     Title: string
     Year: string
     Rated: string

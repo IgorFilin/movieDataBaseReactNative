@@ -15,7 +15,7 @@ export const OneFilmInSearched:React.FC<OneFilmInSearchedType> = ({film,navigati
 
     const onPressItemContentHandler = () => {
         dispatch(contentThunk({id:film.imdbID}))
-        navigation.navigate('Title', {id: film.imdbID})
+        navigation.navigate('Title')
     }
 
     return (

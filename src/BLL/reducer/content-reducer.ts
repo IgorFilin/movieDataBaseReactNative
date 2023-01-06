@@ -33,7 +33,7 @@ export const contentSlice = createSlice({
             }
         })
         builder.addCase(contentThunk.fulfilled, (state, action) => {
-            if(action.meta.arg.page === 1){
+            if(action.meta.arg.page === 1 ){
                 state.isLoading = false
             }
             if(action.payload && Array.isArray(action.payload)){

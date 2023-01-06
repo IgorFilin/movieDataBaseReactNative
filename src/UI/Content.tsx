@@ -4,7 +4,7 @@ import {FlatList, NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View} fro
 import {OneFilmInSearched} from "./oneFilmInSearched";
 import {contentThunk} from "../BLL/thunk/contentThunk";
 import {contentSlice} from "../BLL/reducer/content-reducer";
-import {Button} from "react-native-paper";
+import {ActivityIndicator, Button, MD2Colors} from "react-native-paper";
 
 
 type ContentTypeProps = {
@@ -17,6 +17,7 @@ export const Content:React.FC<ContentTypeProps> = ({navigation}) => {
     const {films,page,searchTitle} = useAppSelector(state => state.contentReducer)
     const flatListRef = React.useRef<any>()
 
+    const {isLoading} = useAppSelector(state => state.contentReducer)
 
     const dispatch = useAppDispatch()
 
@@ -37,7 +38,9 @@ export const Content:React.FC<ContentTypeProps> = ({navigation}) => {
     const onPressHandler = () => {
         flatListRef.current.scrollToOffset({ animated: true, offset: 0 })
     }
-
+    if (isLoading) {
+        return <ActivityIndicator style={styles.loader} animating={true} size={'large'} color={MD2Colors.blue600}/>
+    }
     return (
         <View>
             <FlatList
@@ -75,6 +78,12 @@ const styles = StyleSheet.create({
         right:'10%',
         backgroundColor:'#325DF4',
         color:'white',
-    }
+    },
+    loader: {
+        position: 'relative',
+        height: 400,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 
 })
