@@ -6,7 +6,7 @@ import {SearchFilmByIdType, SearchTitleOneFilmType} from "../types/types";
 export const contentThunk = createAsyncThunk('content/getContent', async ({
                                                                               id,
                                                                               page,
-                                                                              title
+                                                                              title,
                                                                           }: { title?: string, page?: number, id?: string }, thunkAPI) => {
     try {
         let responseArr = [] as Array<SearchTitleOneFilmType>
@@ -16,7 +16,7 @@ export const contentThunk = createAsyncThunk('content/getContent', async ({
             responseArr = response.data.Search
             return responseArr
         } else if (id) {
-            const response = await api.getContent('',null,id)
+            const response = await api.getContent('',null,id,'full')
             responseObj = response.data
             return  responseObj
         } else return responseArr

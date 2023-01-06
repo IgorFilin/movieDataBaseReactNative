@@ -1,14 +1,15 @@
-import {instance} from "./instance";
+import {instance, instanceGetPoster} from "./instance";
 
 
 export const api = {
-    getContent: (title?: string, page?: number | null, id?: string) => {
+    getContent: (title?: string, page?: number | null, id?: string,plot?:string) => {
         return instance.get('', {
             params: {
                 s: title,
                 page,
-                i: id
+                i: id,
+                plot:plot
             }
         })
-    }
+    },
 }

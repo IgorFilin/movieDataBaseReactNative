@@ -5,7 +5,7 @@ import {SearchFilmByIdType, SearchTitleOneFilmType} from "../types/types";
 const initialState = {
     films: [] as Array<SearchTitleOneFilmType>,
     page: 2 as number,
-    searchFilmById:{} as SearchFilmByIdType | {},
+    searchFilmById:{} as SearchFilmByIdType ,
     searchTitle: '' as string,
     isLoading: false as boolean,
     currentId:'',
@@ -21,7 +21,7 @@ export const contentSlice = createSlice({
         clearState:(state)=>{
             state.films = []
             state.page = 2
-            state.searchFilmById = {}
+            state.searchFilmById = {} as SearchFilmByIdType
             state.searchTitle = ''
             state.currentId = ''
         }
