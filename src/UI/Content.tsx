@@ -54,7 +54,7 @@ export const Content:React.FC<ContentTypeProps> = ({navigation}) => {
                 onEndReached={onEndHandler}
                 scrollsToTop
             />
-            { onButtonUp && <Button  labelStyle={{ color: "white", fontSize: 15 }} onPress={onPressHandler} style={styles.upScrollButton}>Up</Button>}
+            { onButtonUp && <Button  labelStyle={{ color: "white", fontSize: 17,opacity:0.5,width:60,padding:5}} onPress={onPressHandler} style={styles.upScrollButton}>Up</Button>}
         </View>
     );
 };
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     upScrollButton:{
         position:"absolute",
         top:22,
-        right:'10%',
+        right:'5%',
         backgroundColor:'#325DF4',
         color:'white',
     },

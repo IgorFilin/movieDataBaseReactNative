@@ -8,6 +8,7 @@ const initialState = {
     searchFilmById:{} as SearchFilmByIdType ,
     searchTitle: '' as string,
     isLoading: false as boolean,
+    isLoadingSearchedFilmById:false,
     currentId:'',
 }
 
@@ -31,17 +32,22 @@ export const contentSlice = createSlice({
             if(action.meta.arg.page === 1){
                 state.isLoading = true
             }
+            if(action.meta.arg.id){
+                state.isLoadingSearchedFilmById = true
+            }
         })
         builder.addCase(contentThunk.fulfilled, (state, action) => {
             if(action.meta.arg.page === 1 ){
                 state.isLoading = false
             }
+
             if(action.payload && Array.isArray(action.payload)){
                 state.films = [...state.films,...action.payload]
             }
             if(action.meta.arg.id && typeof action.payload === 'object' &&
                 !Array.isArray(action.payload) &&
                 action.payload !== null){
+                state.isLoadingSearchedFilmById = false
                 state.currentId = action.meta.arg.id
                 state.searchFilmById = action.payload
             }
@@ -54,6 +60,9 @@ export const contentSlice = createSlice({
         builder.addCase(contentThunk.rejected, (state,action) => {
             if(action.meta.arg.page === 1){
                 state.isLoading = false
+            }
+            if(action.meta.arg.id){
+                state.isLoadingSearchedFilmById = false
             }
         })
     }

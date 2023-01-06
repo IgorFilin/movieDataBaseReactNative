@@ -7,14 +7,14 @@ import {ActivityIndicator, MD2Colors} from "react-native-paper";
 type CurrentFilmByIdType = {}
 
 export const CurrentFilmById: React.FC<CurrentFilmByIdType> = () => {
+    const film = useAppSelector<SearchFilmByIdType>(state => state.contentReducer.searchFilmById)
+    const {isLoadingSearchedFilmById} = useAppSelector(state => state.contentReducer)
 
-    const {isLoading} = useAppSelector(state => state.contentReducer)
-
-    if (isLoading) {
+    if (isLoadingSearchedFilmById) {
         return <ActivityIndicator style={styles.loader} animating={true} size={'large'} color={MD2Colors.blue600}/>
     }
 
-    const film = useAppSelector<SearchFilmByIdType>(state => state.contentReducer.searchFilmById)
+
     return (
         <ScrollView>
             <View style={styles.searchedFilmById}>
@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textContent: {
+        fontSize:17,
         textAlign: 'center',
         padding: 2
     },
